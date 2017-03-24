@@ -10,10 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-    EditText editText;
-    Button but1, but2, but3, add, sub, result;
-    int currentnum1 =0, currentnum2=0, resultnum=0;
+public class MainActivity extends AppCompatActivity{
+    TextView text1;
+    Button intent1, intent2;
+    static final int REQUEST_CODE = 1001;
+    String text_result;
 
 
     @Override
@@ -21,59 +22,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editText = (EditText)findViewById(R.id.edit);
-        but1 = (Button)findViewById(R.id.but1);
-        but2 = (Button)findViewById(R.id.but2);
-        but3 = (Button)findViewById(R.id.but3);
-        add = (Button)findViewById(R.id.add);
-        sub = (Button)findViewById(R.id.sub);
-        result = (Button)findViewById(R.id.result);
-
-
-
-        but1.setOnClickListener(new View.OnClickListener() {
+        text1 = (TextView)findViewById(R.id.text1);
+        intent1 = (Button)findViewById(R.id.intent1);
+        intent2 = (Button)findViewById(R.id.intent2);
+        intent1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentnum2 = 1;
+                Intent intent1 = new Intent(getApplicationContext(), SecondActivity.class);
+                intent1.putExtra("text", text1.getText().toString());
+                startActivity(intent1);
             }
         });
-        but2.setOnClickListener(new View.OnClickListener() {
+        intent2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentnum2 = 2;
+                Intent intent2 = new Intent(getApplicationContext(), SecondActivity.class);
+                intent2.putExtra("text", text1.getText().toString());
+                startActivityForResult(intent2, REQUEST_CODE);
             }
         });
-        but3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentnum2 = 3;
-            }
-        });
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentnum1 = Integer.parseInt(editText.getText().toString());
-                resultnum = currentnum1 + currentnum2;
-            }
-        });
-        sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentnum1 = Integer.parseInt(editText.getText().toString());
-                resultnum = currentnum1 - currentnum2;
-            }
-        });
-        result.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
-                intent.putExtra("result", resultnum);
-                startActivity(intent);
-            }
-        });
-
-
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == REQUEST_CODE){
+                text_result = data.getStringExtra("result text");
+                text1.setText(text_result);
+                Toast.makeText(getApplicationContext(), "resultmsg :"+text_result, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
