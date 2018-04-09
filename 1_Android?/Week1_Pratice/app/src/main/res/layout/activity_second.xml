@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_second"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sopt_android_20th.week1_pratice.SecondActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text2"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="finish"
+        android:id="@+id/finish"
+        android:layout_above="@+id/return_result"
+        android:layout_toRightOf="@+id/text2"
+        android:layout_toEndOf="@+id/text2" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="return result"
+        android:id="@+id/return_result"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/text2"
+        android:layout_toEndOf="@+id/text2" />
+
+</RelativeLayout>
